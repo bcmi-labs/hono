@@ -56,6 +56,9 @@
         <property>
           <name>docker.host</name>
         </property>
+        <property>
+          <name>docker.pushRegistry</name>
+        </property>
       </activation>
       <build>
         <plugins>
@@ -63,6 +66,7 @@
             <groupId>io.fabric8</groupId>
             <artifactId>fabric8-maven-plugin</artifactId>
             <configuration>
+              <pushRegistry>${docker.pushRegistry}</pushRegistry>
               <images>
                 <image>
                   <build>
