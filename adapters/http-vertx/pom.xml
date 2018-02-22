@@ -56,9 +56,6 @@
         <property>
           <name>docker.host</name>
         </property>
-        <property>
-          <name>docker.pushRegistry</name>
-        </property>
       </activation>
       <build>
         <plugins>
