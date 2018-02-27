@@ -29,6 +29,7 @@ spec:
           mountPath: /var/lib/hono/device-registry
         - name: conf
           mountPath: /run/secrets
+        image: ${aws_ecr_uri}:${project.artifactId}-latest
         env:
         - name: SPRING_CONFIG_LOCATION
           value: file:///run/secrets/

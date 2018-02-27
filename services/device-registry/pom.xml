@@ -39,6 +39,9 @@
           <name>docker.host</name>
         </property>
       </activation>
+      <properties>
+        <ecr_uri>${aws_ecr_uri}</ecr_uri>
+      </properties>
       <build>
         <plugins>
           <plugin>
