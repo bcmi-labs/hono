@@ -139,7 +139,7 @@ echo
 echo "Configuring Grafana with data source & dashboard ..."
 
 chmod +x $SCRIPTPATH/../configure_grafana.sh
-HOST=$(kubectl get nodes --output=jsonpath='{range .items[*]}{.status.addresses[?(@.type=="InternalIP")].address} {.spec.podCIDR} {"\n"}{end}')
+HOST=$(kubectl get pod -l "role=grafana" -n hono -o jsonpath='{.items[*].status.hostIP}')
 GRAFANA_PORT='NaN'
 until [ "$GRAFANA_PORT" -eq "$GRAFANA_PORT" ] 2>/dev/null; do
   GRAFANA_PORT=$(kubectl get service grafana -n hono --output='jsonpath={.spec.ports[0].nodePort}'); sleep 1;
