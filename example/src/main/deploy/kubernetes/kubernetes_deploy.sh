@@ -16,7 +16,7 @@ SCRIPTPATH="$(cd "$(dirname "$0")" && pwd -P)"
 HONO_HOME=$SCRIPTPATH/../../../..
 CONFIG=$SCRIPTPATH/../../config
 CERTS=$CONFIG/hono-demo-certs-jar
-NS=hono
+NS=${1-hono}
 
 echo DEPLOYING ECLIPSE HONO TO KUBERNETES
 
