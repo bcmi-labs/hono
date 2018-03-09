@@ -21,7 +21,7 @@ spec:
         volumeMounts:
         - name: conf
           mountPath: /run/secrets
-        image: ${aws_ecr_uri}/${project.artifactId}:${hono_top_commit}
+        image: eclipse/${project.artifactId}:${deploy_image_tag}
         env:
         - name: SPRING_CONFIG_LOCATION
           value: file:///run/secrets/
