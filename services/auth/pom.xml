@@ -42,8 +42,7 @@
         </property>
       </activation>
       <properties>
-        <ecr_uri>${aws_ecr_uri}</ecr_uri>
-        <hono_top_commit>${hono_top_commit}</hono_top_commit>
+        <deploy_image_tag>${deploy_image_tag}</deploy_image_tag>
       </properties>
       <build>
         <plugins>
