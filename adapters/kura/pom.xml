@@ -56,7 +56,7 @@
         </property>
       </activation>
       <properties>
-        <deploy_image_tag>${deploy_image_tag}</deploy_image_tag>
+        <deploy_img_tag>${deploy_image_tag}</deploy_img_tag>
       </properties>
       <build>
         <plugins>
