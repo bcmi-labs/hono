@@ -11,6 +11,7 @@ pipeline:
       - grep -q "BUILD SUCCESS" build.out
 
   ## deployment via CLI: drone deploy $REPO <build #> <namespace>
+  ## by default, target namespace deployed to dev cluster unless branch is "staging" or "production"
   kubectl-context:
     image: alpine
     when:
