@@ -4,4 +4,4 @@ spec:
   - port: 5671
     protocol: TCP
     targetPort: 5671
-    nodePort: 32671
+    #nodePort: 32671
