@@ -13,9 +13,7 @@ pipeline:
   ## temporary for debugging
   upload-artifacts:
     image: cgswong/aws:s3cmd
-    environment:
-      - BUCKET=drone.artifacts
     commands:
-      - s3cmd --access_key=$${AWS_ACCESS_KEY} --secret_key=$${AWS_SECRET_KEY} --recursive sync $${CI_WORKSPACE}/example/target s3://$${BUCKET}/$${CI_COMMIT_SHA}/
-    secrets: [ aws_access_key, aws_secret_key ]
+      - s3cmd --access_key=$${AWS_ACCESS_KEY} --secret_key=$${AWS_SECRET_KEY} --recursive sync $${CI_WORKSPACE}/example/target s3://$${DRONE_BUCKET}/$${CI_REPO}/$${CI_COMMIT_SHA}/
+    secrets: [ aws_access_key, aws_secret_key, drone_bucket ]
 
