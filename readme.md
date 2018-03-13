@@ -26,4 +26,4 @@ Please check out the [Eclipse Hono project home page](https://www.eclipse.org/ho
 
 - [![Travis Build Status](https://travis-ci.org/eclipse/hono.svg?branch=master)](https://travis-ci.org/eclipse/hono)
 - [Hudson Build Status](https://hudson.eclipse.org/hono/)
-- [![Drone Build Status](http://drone.k8s.iot.arduino.cc/api/badges/Cascadeo-arduino/hono/status.svg?branch=rel0.5-cascadeoX)](http://drone.k8s.iot.arduino.cc/Cascadeo-arduino/hono)
+- [![Drone Build Status](http://drone.arduino.cc/api/badges/bcmi-labs/hono/status.svg?branch=rel0.5-cascadeoX)](http://drone.arduino.cc/bcmi-labs/hono)

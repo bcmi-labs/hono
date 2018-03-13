@@ -3,52 +3,19 @@ pipeline:
   build:
     image: maven:3.5.2
     environment:
-      - DOCKER_HOST=tcp://10.32.2.102:2375
       - DEPLOY_IMAGE_TAG=0.5
     commands:
       - mvn clean install -DskipTests -Ddeploy_image_tag=$${DEPLOY_IMAGE_TAG} -Ddocker.host=$${DOCKER_HOST} -Pbuild-docker-image -lbuild.out
       - tail -100 build.out
       - grep -q "BUILD SUCCESS" build.out
+    secrets: [ docker_host ]
 
-  ## deployment via CLI: drone deploy $REPO <build #> <namespace>
-  ## by default, target namespace deployed to dev cluster unless branch is "staging" or "production"
-  kubectl-context:
-    image: alpine
-    when:
-      event: deployment
+  ## temporary for debugging
+  upload-artifacts:
+    image: cgswong/aws:s3cmd
     environment:
-      - DEV_CLUSTER=dev.k8s.iot.arduino.cc
-      - STG_CLUSTER=stg.k8s.iot.arduino.cc
-      - PROD_CLUSTER=prod.k8s.iot.arduino.cc
+      - BUCKET=drone.artifacts
     commands:
-      - if [ $${DRONE_BRANCH} == "staging" ]; then CLUSTER=$${DEV_CLUSTER}; elif [ $${DRONE_BRANCH} == "production" ]; then CLUSTER=$${PROD_CLUSTER}; else CLUSTER=$${DEV_CLUSTER};fi && echo $${CLUSTER} > CLUSTER
-      - echo "$${KUBECONFIG}" > kubeconfig
-    secrets: [ kubeconfig ]
+      - s3cmd --access_key=$${AWS_ACCESS_KEY} --secret_key=$${AWS_SECRET_KEY} --recursive sync $${CI_WORKSPACE}/example/target s3://$${BUCKET}/$${CI_COMMIT_SHA}/
+    secrets: [ aws_access_key, aws_secret_key ]
 
-  deploy-hono:
-    image: lachlanevenson/k8s-kubectl
-    when:
-      event: deployment
-    commands:
-      - export KUBECONFIG=$${CI_WORKSPACE}/kubeconfig
-      - export SCRIPT_DIR=$${CI_WORKSPACE}/example/target/deploy
-      - kubectl config use-context $(cat CLUSTER)
-      - cd $${SCRIPT_DIR}/kubernetes/
-      - sed -i 's/\\/usr\\/bin\\/env bash/\\/bin\\/sh/' $${SCRIPT_DIR}/configure_grafana.sh
-      - chmod +x *.sh
-      - chmod +x $${SCRIPT_DIR}/configure_grafana.sh
-      - ./kubernetes_deploy.sh $${DRONE_DEPLOY_TO}
-      - echo $(kubectl get po -l "role=grafana" -n $${DRONE_DEPLOY_TO} -o jsonpath="{.items[*].status.hostIP}") &> $${SCRIPT_DIR}/GRAFANA_HOST
-      - echo $(kubectl get service grafana -n $${DRONE_DEPLOY_TO} --output='jsonpath={.spec.ports[0].nodePort}') &> $${SCRIPT_DIR}/GRAFANA_PORT
-
-  configure-grafana:
-    image: ubuntu:16.04
-    when:
-      event: deployment
-    commands: 
-      - export SCRIPT_DIR=$${CI_WORKSPACE}/example/target/deploy
-      - apt-get update -y
-      - apt-get install wget curl -y 
-      - cd $${SCRIPT_DIR}
-      - ./configure_grafana.sh $(cat GRAFANA_HOST) $(cat GRAFANA_PORT)
-     
