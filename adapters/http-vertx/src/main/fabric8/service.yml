@@ -1,11 +1,10 @@
 metadata:
   annotations:
-    service.beta.kubernetes.io/aws-load-balancer-internal: 0.0.0.0/0
     service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
     service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"
     service.beta.kubernetes.io/aws-load-balancer-ssl-cert: ${aws.cm.cert}
+    external-dns.alpha.kubernetes.io/hostname: ${project.artifactId}.${client-ns}.${cluster-domain}.
 spec:
-  #type: NodePort
   type: LoadBalancer
   ports:
   - port: 8080
