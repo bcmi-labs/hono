@@ -4,8 +4,8 @@ spec:
   - port: 1883
     protocol: TCP
     targetPort: 1883
-    nodePort: 31884
+    #nodePort: 31884
   - port: 8883
     protocol: TCP
     targetPort: 8883
-    nodePort: 30884
+    #nodePort: 30884
