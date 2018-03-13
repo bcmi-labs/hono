@@ -1,11 +1,21 @@
+metadata:
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-internal: 0.0.0.0/0
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: ${aws.cm.cert}
 spec:
-  type: NodePort
+  #type: NodePort
+  type: LoadBalancer
   ports:
   - port: 8080
     protocol: TCP
     targetPort: 8080
-    nodePort: 30080
+    #nodePort: 30080
   - port: 8443
     protocol: TCP
     targetPort: 8443
-    nodePort: 30443
+    #nodePort: 30443
+  - port: 443
+    protocol: TCP
+    targetPort: 8080
