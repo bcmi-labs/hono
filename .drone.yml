@@ -14,6 +14,6 @@ pipeline:
   upload-artifacts:
     image: cgswong/aws:s3cmd
     commands:
-      - s3cmd --access_key=$${AWS_ACCESS_KEY} --secret_key=$${AWS_SECRET_KEY} --recursive --force --delete-removed sync $${CI_WORKSPACE}/example/target s3://$${DRONE_BUCKET}/$${CI_REPO}/
+      - s3cmd --access_key=$${AWS_ACCESS_KEY} --secret_key=$${AWS_SECRET_KEY} --recursive --force --delete-removed sync $${CI_WORKSPACE}/example/target s3://$${DRONE_BUCKET}/$${CI_REPO}/$${CI_COMMIT_BRANCH}/
     secrets: [ aws_access_key, aws_secret_key, drone_bucket ]
 
