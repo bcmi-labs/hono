@@ -1,12 +1,10 @@
 metadata:
   name: ${project.artifactId}-ext
   annotations:
-    service.beta.kubernetes.io/aws-load-balancer-internal: 0.0.0.0/0
     service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
     service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "5674"
     service.beta.kubernetes.io/aws-load-balancer-ssl-cert: ${aws.cm.cert}
 spec:
-  #type: NodePort
   type: LoadBalancer
   ports:
   - name: amqp
