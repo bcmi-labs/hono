@@ -24,6 +24,12 @@ echo DEPLOYING ECLIPSE HONO TO KUBERNETES
 kubectl create namespace $NS
 
 echo
+echo "Deploying ExternalDNS ..."
+
+kubectl create -f $SCRIPTPATH/external-dns-deployment.yml --namespace $NS
+echo ... done
+
+echo
 echo "Deploying influxDB & Grafana ..."
 
 kubectl create serviceaccount useroot --namespace $NS
