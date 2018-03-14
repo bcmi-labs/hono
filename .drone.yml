@@ -4,6 +4,9 @@ pipeline:
     image: maven:3.5.2
     environment:
       - DEPLOY_IMAGE_TAG=0.5
+      - AWS_CM_CERT=$${CM_CERT}
+      - CLIENT_NS=$${CL_NS}
+      - CLUSTER_DOMAIN=$${CL_DOM}
     commands:
       - mvn clean install -DskipTests -Ddeploy_image_tag=$${DEPLOY_IMAGE_TAG} -Ddocker.host=$${DOCKER_HOST} -Pbuild-docker-image -lbuild.out
       - tail -100 build.out
