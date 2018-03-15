@@ -11,7 +11,7 @@
 #    Red Hat - initial creation
 #    Bosch Software Innovations GmbH
 
-NS=hono
+NS=${1-hono}
 
 echo UNDEPLOYING ECLIPSE HONO FROM KUBERNETES
 
