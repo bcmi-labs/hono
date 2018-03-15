@@ -10,6 +10,13 @@ pipeline:
       - grep -q "BUILD SUCCESS" build.out
     secrets: [ docker_host ]
 
+  show-error:
+    image: alpine
+    when:
+      status: [ failure ]
+    commands:
+      - tail -100 build.out
+
   ## temporary for debugging
   upload-artifacts:
     image: cgswong/aws:s3cmd
