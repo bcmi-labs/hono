@@ -8,8 +8,8 @@ pipeline:
       - CLUSTER=stg.k8s.iot.arduino.cc
     commands:
       - sed -i "s/\.hono/\.$${NS}/" $${CI_WORKSPACE}/demo-certs/ca_opts
-      - cat $${CI_WORKSPACE}/demo-certs/ca_opts
       - cd $${CI_WORKSPACE}/demo-certs && ./create_certs.sh && cd $${CI_WORKSPACE}
+      - sed -i "s/\.hono/\.$${NS}/" $${CI_WORKSPACE}/dispatchrouter/qpid/qdrouterd-with-broker.json
       - mvn clean install -DskipTests -Ddeploy_image_tag=$${DEPLOY_IMAGE_TAG} -Ddocker.host=$${DOCKER_HOST} -Daws.cm.cert=$${CM_CERT} -Dclient.ns=$${NS} -Dcluster.domain=$${CLUSTER} -Pbuild-docker-image -lbuild.out
       - tail -100 build.out
       - grep -q "BUILD SUCCESS" build.out
