@@ -4,8 +4,10 @@ pipeline:
     image: maven:3.5.2
     environment:
       - DEPLOY_IMAGE_TAG=0.5
+      - NS=stg-hono
+      - CLUSTER=stg.k8s.iot.arduino.cc
     commands:
-      - mvn clean install -DskipTests -Ddeploy_image_tag=$${DEPLOY_IMAGE_TAG} -Ddocker.host=$${DOCKER_HOST} -Daws.cm.cert="$${CM_CERT}" -Dclient.ns="$${CL_NS}" -Dcluster.domain="$${CL_DOM}" -Pbuild-docker-image -lbuild.out
+      - mvn clean install -DskipTests -Ddeploy_image_tag=$${DEPLOY_IMAGE_TAG} -Ddocker.host=$${DOCKER_HOST} -Daws.cm.cert=$${CM_CERT} -Dclient.ns=$${NS} -Dcluster.domain=$${CLUSTER} -Pbuild-docker-image -lbuild.out
       - tail -100 build.out
       - grep -q "BUILD SUCCESS" build.out
     secrets: [ docker_host ]
