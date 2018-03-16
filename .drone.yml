@@ -4,7 +4,9 @@ pipeline:
     image: maven:3.5.2
     environment:
       - DEPLOY_IMAGE_TAG=0.5
+      # Kubernetes namespace to deploy to
       - NS=stg-hono
+      # Kubernetes cluster to deploy to
       - CLUSTER=stg.k8s.iot.arduino.cc
     commands:
       - sed -i "s/\.hono/\.$${NS}/" $${CI_WORKSPACE}/demo-certs/ca_opts
