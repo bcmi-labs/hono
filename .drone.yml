@@ -7,6 +7,9 @@ pipeline:
       # Kubernetes namespace to deploy to
       - NS=stg-hono
       # Kubernetes cluster to deploy to
+      # Get a copy of arduino-kubeconfig
+      # $ export KUBECONFIG=/path/to/arduino-kubeconfig
+      # $ kubectl config use-context stg.k8s.iot.arduino.cc
       - CLUSTER=stg.k8s.iot.arduino.cc
     commands:
       - sed -i "s/\.hono/\.$${NS}/" $${CI_WORKSPACE}/demo-certs/ca_opts
