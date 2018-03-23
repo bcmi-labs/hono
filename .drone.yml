@@ -12,7 +12,7 @@ pipeline:
       # $ kubectl config use-context stg.k8s.iot.arduino.cc
       - CLUSTER=stg.k8s.iot.arduino.cc
       # prefix used for secret <PREFIX>_CM_CERT
-      - PREFIX=STG
+      - PREFIX=STG1
     commands:
       - if [ "$${PREFIX}" == "STG" ]; then CM_CERT=$${STG_CM_CERT}; elif [ "$${PREFIX}" == "PROD" ]; then CM_CERT=$${PROD_CM_CERT}; else CM_CERT=$${DEV_CM_CERT}; fi
       - sed -i "s/\.hono/\.$${NS}/" $${CI_WORKSPACE}/demo-certs/ca_opts
