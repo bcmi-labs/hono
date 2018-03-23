@@ -11,10 +11,9 @@ pipeline:
       # $ export KUBECONFIG=/path/to/arduino-kubeconfig
       # $ kubectl config use-context stg.k8s.iot.arduino.cc
       - CLUSTER=stg.k8s.iot.arduino.cc
-      # prefix used for secret <PREFIX>_CM_CERT
-      - PREFIX=US-EAST-1
+      # !! Replace what is assigned to ACM_CERT below and add to secrets: []
     commands:
-      - export ACM_CERT=$${$PREFIX_CM_CERT}
+      - export ACM_CERT=$${$US-EAST-1_CM_CERT}
       - sed -i "s/\.hono/\.$${NS}/" $${CI_WORKSPACE}/demo-certs/ca_opts
       - cd $${CI_WORKSPACE}/demo-certs && ./create_certs.sh && cd $${CI_WORKSPACE}
       - sed -i "s/\.hono/\.$${NS}/" $${CI_WORKSPACE}/dispatchrouter/qpid/qdrouterd-with-broker.json
@@ -22,7 +21,7 @@ pipeline:
       - mvn clean install -DskipTests -Ddeploy_image_tag=$${DEPLOY_IMAGE_TAG} -Ddocker.host=$${DOCKER_HOST} -Daws.cm.cert=$${ACM_CERT} -Dclient.ns=$${NS} -Dcluster.domain=$${CLUSTER} -Pbuild-docker-image -lbuild.out
       - tail -100 build.out
       - grep -q "BUILD SUCCESS" build.out
-    secrets: [ docker_host, cm_cert ]
+    secrets: [ docker_host, us-east-1_cm_cert ]
 
   show-error:
     image: alpine
