@@ -12,9 +12,9 @@ pipeline:
       # $ kubectl config use-context stg.k8s.iot.arduino.cc
       - CLUSTER=stg.k8s.iot.arduino.cc
       # prefix used for secret <PREFIX>_CM_CERT
-      - PREFIX=US-EAST-1
+      - PREFIX=STG
     commands:
-      - export CM_CERT=$${${PREFIX}_CM_CERT}
+      - if [ $PREFIX == "STG" ]; then CM_CERT=$${STG_CM_CERT}; elif [ $PREFIX == "PROD" ]; then CM_CERT=$${PROD_CM_CERT}; else CM_CERT=$${DEV_CM_CERT}; fi
       - sed -i "s/\.hono/\.$${NS}/" $${CI_WORKSPACE}/demo-certs/ca_opts
       - cd $${CI_WORKSPACE}/demo-certs && ./create_certs.sh && cd $${CI_WORKSPACE}
       - sed -i "s/\.hono/\.$${NS}/" $${CI_WORKSPACE}/dispatchrouter/qpid/qdrouterd-with-broker.json
