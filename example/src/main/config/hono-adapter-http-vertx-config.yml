@@ -19,21 +19,21 @@ hono:
   registration:
     name: 'Hono REST Adapter'
     host: ${hono.registration.host}
-    port: 5671
+    port: 5672
     username: ${hono.adapter.http.username}
     password: ${hono.adapter.http.password}
     trustStorePath: ${hono.trustStore.path}
     hostnameVerificationRequired: false
-    #tlsEnable: false
+    tlsEnable: false
   credentials:
     name: 'Hono REST Adapter'
     host: ${hono.registration.host}
-    port: 5671
+    port: 5672
     username: ${hono.adapter.http.username}
     password: ${hono.adapter.http.password}
     trustStorePath: ${hono.trustStore.path}
     hostnameVerificationRequired: false
-    #tlsEnable: false
+    tlsEnable: false
   metric:
     reporter:
       graphite:
