@@ -13,7 +13,7 @@ pipeline:
       - CLUSTER=stg.k8s.iot.arduino.cc
       # !!! Replace what is assigned to ACM_CERT below and add to secrets: []
     commands:
-      - export ACM_CERT=$${US-EAST-1_CM_CERT}
+      - export ACM_CERT=$${US_EAST_1_CM_CERT}
       - sed -i "s/\.hono/\.$${NS}/" $${CI_WORKSPACE}/demo-certs/ca_opts
       - cd $${CI_WORKSPACE}/demo-certs && ./create_certs.sh && cd $${CI_WORKSPACE}
       - sed -i "s/\.hono/\.$${NS}/" $${CI_WORKSPACE}/dispatchrouter/qpid/qdrouterd-with-broker.json
