@@ -11,7 +11,7 @@ pipeline:
       # $ export KUBECONFIG=/path/to/arduino-kubeconfig
       # $ kubectl config use-context stg.k8s.iot.arduino.cc
       - CLUSTER=stg.k8s.iot.arduino.cc
-      # !! Replace what is assigned to ACM_CERT below and add to secrets: []
+      # !!! Replace what is assigned to ACM_CERT below and add to secrets: []
     commands:
       - export ACM_CERT=$${US-EAST-1_CM_CERT}
       - sed -i "s/\.hono/\.$${NS}/" $${CI_WORKSPACE}/demo-certs/ca_opts
