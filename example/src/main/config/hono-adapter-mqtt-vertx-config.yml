@@ -19,17 +19,27 @@ hono:
   registration:
     name: 'Hono MQTT Adapter'
     host: ${hono.registration.host}
-    port: 5671
+    port: ${hono.registration.port}
     username: ${hono.adapter.mqtt.username}
     password: ${hono.adapter.mqtt.password}
-    trustStorePath: ${hono.trustStore.path}
+    # Verification is disabled by default. Setting the <em>trustStorePath</em>
+    # property enables verification of the server identity implicitly and the
+    # value of this property is ignored.
+    #trustStorePath: ${hono.trustStore.path}
+    hostnameVerificationRequired: ${hono.registration.hostnameVerificationRequired}
+    tlsEnabled: ${hono.registration.tlsEnabled}
   credentials:
     name: 'Hono MQTT Adapter'
     host: ${hono.registration.host}
-    port: 5671
+    port: ${hono.registration.port}
     username: ${hono.adapter.mqtt.username}
     password: ${hono.adapter.mqtt.password}
-    trustStorePath: ${hono.trustStore.path}
+    # Verification is disabled by default. Setting the <em>trustStorePath</em>
+    # property enables verification of the server identity implicitly and the
+    # value of this property is ignored.
+    #trustStorePath: ${hono.trustStore.path}
+    hostnameVerificationRequired: ${hono.registration.hostnameVerificationRequired}
+    tlsEnabled: ${hono.registration.tlsEnabled}
   metric:
     reporter:
       graphite:
