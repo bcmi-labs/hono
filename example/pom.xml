@@ -33,7 +33,7 @@ Also contains scripts for deploying a Hono instance to a Docker Swarm, a Kuberne
   <properties>
     <docker.skip.build>true</docker.skip.build>
     <hono.messaging.host>hono-service-messaging.${client.ns}</hono.messaging.host>
-    <hono.registration.host>hono-device-registry.${client.ns}.${cluster.domain}</hono.registration.host>
+    <hono.registration.host>${client.ns}-hono-device-registry-internal.${client.ns}</hono.registration.host>
     <hono.registration.hostnameVerificationRequired>false</hono.registration.hostnameVerificationRequired>
     <hono.registration.port>5672</hono.registration.port>
     <hono.registration.tlsEnabled>false</hono.registration.tlsEnabled>
