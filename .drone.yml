@@ -21,7 +21,7 @@ pipeline:
       - mvn clean install -DskipTests -Ddeploy_image_tag=$${DEPLOY_IMAGE_TAG} -Ddocker.host=$${DOCKER_HOST} -Daws.cm.cert=$${ACM_CERT} -Dclient.ns=$${NS} -Dcluster.domain=$${CLUSTER} -Pbuild-docker-image -lbuild.out
       - tail -100 build.out
       - grep -q "BUILD SUCCESS" build.out
-    secrets: [ docker_host, us-east-1_cm_cert ]
+    secrets: [ docker_host, us_east_1_cm_cert ]
 
   show-error:
     image: alpine
