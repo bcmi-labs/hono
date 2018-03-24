@@ -16,6 +16,7 @@ hono:
     username: ${hono.adapter.http.username}
     password: ${hono.adapter.http.password}
     trustStorePath: ${hono.trustStore.path}
+    hostnameVerificationRequired: false
   registration:
     name: 'Hono REST Adapter'
     host: ${hono.registration.host}
