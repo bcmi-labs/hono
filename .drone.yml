@@ -5,7 +5,7 @@ pipeline:
     environment:
       - DEPLOY_IMAGE_TAG=0.5
       # Kubernetes namespace to deploy to
-      - NS=premstg1
+      - NS=premstg2
       # Kubernetes cluster to deploy to
       # Get a copy of arduino-kubeconfig
       # $ export KUBECONFIG=/path/to/arduino-kubeconfig
