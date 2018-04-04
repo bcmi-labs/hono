@@ -1,16 +1,29 @@
+metadata:
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: ${aws.cm.cert}
+    external-dns.alpha.kubernetes.io/hostname: ${project.artifactId}.${client.ns}.${cluster.domain}.
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
-  - port: 5671
+  - name: amqps
+    port: 5671
     protocol: TCP
     targetPort: 5671
     #nodePort: 31671
-  - port: 8080
+  - name: http
+    port: 8080
     protocol: TCP
     targetPort: 8080
     #nodePort: 31080
-  - port: 8443
+  - name: https
+    port: 8443
     protocol: TCP
     targetPort: 8443
     #nodePort: 31443
-    
+  - name: lb-http
+    port: 443
+    protocol: TCP
+    targetPort: 8080
+
