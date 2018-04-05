@@ -13,7 +13,7 @@ hono:
     validation:
       certPath: ${hono.auth.validation.certPath}
   downstream:
-    host: messaging.hono
+    host: messaging.${client.ns}
     port: 5672
     #keyPath: /run/secrets/hono-messaging-key.pem
     #certPath: /run/secrets/hono-messaging-cert.pem
@@ -28,5 +28,5 @@ hono:
     reporter:
       graphite:
         active: true
-        host: influxdb
+        host: influxdb.${client.ns}
         port: 2003
