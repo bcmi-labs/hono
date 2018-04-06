@@ -1,4 +1,4 @@
-# reserved line
+# Fri Apr  6 14:35:33 UTC 2018
 
 pipeline:
 
@@ -7,7 +7,7 @@ pipeline:
     environment:
       - DEPLOY_IMAGE_TAG=0.5
       # Kubernetes namespace to deploy to
-      - NS=hono-stg-dev1
+      - NS=premstg11
       # Kubernetes cluster to deploy to
       # Get a copy of arduino-kubeconfig
       # $ export KUBECONFIG=/path/to/arduino-kubeconfig
