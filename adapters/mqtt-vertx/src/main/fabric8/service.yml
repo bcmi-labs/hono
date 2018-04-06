@@ -1,6 +1,6 @@
 metadata:
   annotations:
-    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
     service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "883"
     service.beta.kubernetes.io/aws-load-balancer-ssl-cert: ${aws.cm.cert}
     external-dns.alpha.kubernetes.io/hostname: ${project.artifactId}.${client.ns}.${cluster.domain}.
