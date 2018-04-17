@@ -7,21 +7,23 @@ pipeline:
     environment:
       - DEPLOY_IMAGE_TAG=0.5
       # Kubernetes namespace to deploy to
-      - NS=hono-stg-dev1
+      - NS=premstg1
       # Kubernetes cluster to deploy to
       # Get a copy of arduino-kubeconfig
       # $ export KUBECONFIG=/path/to/arduino-kubeconfig
       # $ kubectl config use-context stg.k8s.iot.arduino.cc
       - CLUSTER=stg.k8s.iot.arduino.cc
+      # !! Replace what is assigned to ACM_CERT below and add to secrets: []
     commands:
+      - export ACM_CERT=$${US_EAST_1_CM_CERT}
       - sed -i "s/\.hono/\.$${NS}/" $${CI_WORKSPACE}/demo-certs/ca_opts
       - cd $${CI_WORKSPACE}/demo-certs && ./create_certs.sh && cd $${CI_WORKSPACE}
       - sed -i "s/\.hono/\.$${NS}/" $${CI_WORKSPACE}/dispatchrouter/qpid/qdrouterd-with-broker.json
       - sed -i "s/\.hono/\.$${NS}/" $${CI_WORKSPACE}/example/src/main/config/grafana_datasource.json
-      - mvn clean install -DskipTests -Ddeploy_image_tag=$${DEPLOY_IMAGE_TAG} -Ddocker.host=$${DOCKER_HOST} -Daws.cm.cert=$${CM_CERT} -Dclient.ns=$${NS} -Dcluster.domain=$${CLUSTER} -Pbuild-docker-image -lbuild.out
+      - mvn clean install -DskipTests -Ddeploy_image_tag=$${DEPLOY_IMAGE_TAG} -Ddocker.host=$${DOCKER_HOST} -Daws.cm.cert=$${ACM_CERT} -Dclient.ns=$${NS} -Dcluster.domain=$${CLUSTER} -Pbuild-docker-image -lbuild.out
       - tail -100 build.out
       - grep -q "BUILD SUCCESS" build.out
-    secrets: [ docker_host, cm_cert ]
+    secrets: [ docker_host, us_east_1_cm_cert ]
 
   show-error:
     image: alpine
@@ -36,4 +38,3 @@ pipeline:
     commands:
       - s3cmd --access_key=$${AWS_ACCESS_KEY} --secret_key=$${AWS_SECRET_KEY} --recursive --force --delete-removed sync $${CI_WORKSPACE}/example/target s3://$${DRONE_BUCKET}/$${CI_REPO}/$${CI_COMMIT_BRANCH}/
     secrets: [ aws_access_key, aws_secret_key, drone_bucket ]
-
