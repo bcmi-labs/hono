@@ -1,4 +1,4 @@
-# reserved line
+# mar 15 mag 2018, 15.56.30, CEST
 
 pipeline:
 
@@ -7,12 +7,12 @@ pipeline:
     environment:
       - DEPLOY_IMAGE_TAG=0.5
       # Kubernetes namespace to deploy to
-      - NS=hono-stg-dev1
+      - NS=arduino
       # Kubernetes cluster to deploy to
       # Get a copy of arduino-kubeconfig
       # $ export KUBECONFIG=/path/to/arduino-kubeconfig
       # $ kubectl config use-context stg.k8s.iot.arduino.cc
-      - CLUSTER=stg.k8s.iot.arduino.cc
+      - CLUSTER=stg
     commands:
       - sed -i "s/\.hono/\.$${NS}/" $${CI_WORKSPACE}/demo-certs/ca_opts
       - cd $${CI_WORKSPACE}/demo-certs && ./create_certs.sh && cd $${CI_WORKSPACE}
