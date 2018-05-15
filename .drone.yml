@@ -1,4 +1,4 @@
-# mar 15 mag 2018, 11.22.44, CEST
+# mar 15 mag 2018, 11.56.33, CEST
 
 pipeline:
 
@@ -12,7 +12,7 @@ pipeline:
       # Get a copy of arduino-kubeconfig
       # $ export KUBECONFIG=/path/to/arduino-kubeconfig
       # $ kubectl config use-context stg.k8s.iot.arduino.cc
-      - CLUSTER=dev.k8s.iot.arduino.cc
+      - CLUSTER=dev
     commands:
       - sed -i "s/\.hono/\.$${NS}/" $${CI_WORKSPACE}/demo-certs/ca_opts
       - cd $${CI_WORKSPACE}/demo-certs && ./create_certs.sh && cd $${CI_WORKSPACE}
